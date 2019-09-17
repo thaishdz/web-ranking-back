@@ -14,7 +14,9 @@ let db = require('./model');
 
 server.get("/", (req, res) => {
     let offset = Number(req.query.offset) || 0;
-    db.find().skip(offset * 10).limit(10).then(result => {
+    db.find().skip(offset * 10).limit(10)
+    .select("-NIF -address -zip_code -phone_number -phone_number2 -email -license_inscription_date -expiration_date -price")
+        .then(result => {
 
         db.count().then((count) => {
             res.send({
