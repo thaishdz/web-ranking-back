@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const regatistaSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     "affiliate_number": {
         type: String,
@@ -92,4 +92,4 @@ const regatistaSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('regatista', regatistaSchema);
+module.exports = mongoose.model('regatistas', userSchema);
