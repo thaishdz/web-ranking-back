@@ -3,33 +3,17 @@ const server = express();
 const cors = require('cors');
 require('dotenv').config();
 
-const port = process.env.PORT || 3000;
+const mongoose = require('mongoose');
 
+var routes = require("./routes/routes.js");
+
+const port = process.env.PORT || 3000;
 var url = process.env.DB_URL;
 
-const mongoose = require('mongoose');
 server.use(cors());
+server.use(express.json());
 
-let db = require('./model');
-
-server.get("/", (req, res) => {
-    let offset = Number(req.query.offset) || 0;
-    db.find().skip(offset * 10).limit(10).then(result => {
-
-        db.count().then((count) => {
-            res.send({
-                total: count,
-                res: result
-            })
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        })
-    }).catch(err => {
-        res.status(400).send(err);
-    })
-});
-
+server.use("/", routes);
 
 server.listen(port, () => {
     console.log(`Server listening at ${port}`);
