@@ -31,11 +31,9 @@ function getUsersByAffiliate(req, res) {
 
 
 function getUsersByName(req,res) {
-
     const { name }  = req.query;
-    
-    Users.find({"name": name.toUpperCase()})
-        .then(dataset =>{
+    Users.find({"name": { '$regex' : name, '$options' : 'i'}})
+        .then(dataset => {
             res.send(dataset);
         })
         .catch(err =>{
@@ -46,9 +44,6 @@ function getUsersByName(req,res) {
 function getUsersByClub(req,res) {
     
     const { club }  = req.query;
-    console.log(club);
-    
-    
     Users.find({"club": club.toUpperCase()})
         .then(dataset =>{
             res.send(dataset);
@@ -58,4 +53,4 @@ function getUsersByClub(req,res) {
         })
 }
 
-module.exports = { getUsers, getUsersByAffiliate, getUsersByName,getUsersByClub }
+module.exports = { getUsers, getUsersByAffiliate, getUsersByName , getUsersByClub }

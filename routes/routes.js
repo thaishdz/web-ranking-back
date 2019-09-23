@@ -5,6 +5,6 @@ let userController = require("../controllers/userController.js");
 
 router.get('/regatistas', userController.getUsers);
 router.get('/regatistas/:_id', userController.getUsersByAffiliate);
-router.get('/test', userController.getUsersByName);
+router.get('/regatista', userController.getUsersByName);
 
 module.exports = router;

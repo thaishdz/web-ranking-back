@@ -89,7 +89,10 @@ const userSchema = new mongoose.Schema({
     "status": {
         type: String,
         required: true
-    }
+    },
+    "list_of_regattas": [{
+        type: JSON
+    }]
 });
 
 module.exports = mongoose.model('regatistas', userSchema);
