@@ -89,6 +89,10 @@ const userSchema = new mongoose.Schema({
     "status": {
         type: String,
         required: true
+    },
+    "list_of_regattas": {
+        type: Array,
+        required: true
     }
 });
 

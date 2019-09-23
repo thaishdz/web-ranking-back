@@ -31,8 +31,6 @@ function getUsersByAffiliate(req, res) {
 
 
 function getUsersByName(req,res) {
-
-
     const { name }  = req.query;
     
     let offset = Number(req.query.offset) || 0
@@ -63,8 +61,6 @@ function getUsersByClub(req,res) {
     
     const { club }  = req.query;
     
-    console.log(club);
-    
     Users.find({"club": {"$regex": club, "$options": "i"}})
         .then(dataset =>{
             res.send(dataset);
@@ -74,4 +70,4 @@ function getUsersByClub(req,res) {
         })
 }
 
-module.exports = { getUsers, getUsersByAffiliate, getUsersByName,getUsersByClub }
+module.exports = { getUsers, getUsersByAffiliate, getUsersByName , getUsersByClub }
