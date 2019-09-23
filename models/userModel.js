@@ -90,9 +90,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    "list_of_regattas": [{
-        type: JSON
-    }]
+    "list_of_regattas": {
+        type: Array,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('regatistas', userSchema);
