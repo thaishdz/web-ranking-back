@@ -11,8 +11,9 @@ const port = process.env.PORT || 3000;
 const url = process.env.DB_URL;
 const connectionString = process.env.MONGO_ATLAS_URL;
 
-server.use(cors());
 server.use(express.json());
+server.use(cors());
+server.use(express.urlencoded({ extended: true }))
 
 server.use("/", routes);
 
@@ -26,5 +27,4 @@ server.listen(port, () => {
         .catch(err => {
             console.log("Ha ocurrido un error", err);
         })
-
 });

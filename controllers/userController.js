@@ -3,20 +3,20 @@ var Users = require("../models/userModel");
 function getUsers(req, res) {
     let offset = Number(req.query.offset) || 0;
     Users.find().skip(offset * 10).limit(10)
-    .select("-NIF -address -zip_code -phone_number -phone_number2 -email -license_inscription_date -expiration_date -price")
-    .then(result => {
-        Users.countDocuments().then((count) => {
-            res.send({
-                total: count,
-                res: result
+        .select("-NIF -address -zip_code -phone_number -phone_number2 -email -license_inscription_date -expiration_date -price")
+        .then(result => {
+            Users.countDocuments().then((count) => {
+                res.send({
+                    total: count,
+                    res: result
+                })
             })
-        })
-        .catch(err => {
+                .catch(err => {
+                    res.status(400).send(err);
+                })
+        }).catch(err => {
             res.status(400).send(err);
         })
-    }).catch(err => {
-        res.status(400).send(err);
-    })
 }
 
 function getUsersByAffiliate(req, res) {
@@ -30,44 +30,45 @@ function getUsersByAffiliate(req, res) {
 }
 
 
-function getUsersByName(req,res) {
-    const { name }  = req.query;
-    
+function getUsersByName(req, res) {
+    const { name } = req.query;
+
     let offset = Number(req.query.offset) || 0;
     Users.find({
-        "name": { "$regex": name, "$options": "i"}})
+        "name": { "$regex": name, "$options": "i" }
+    })
         .skip(offset * 10).limit(10)
-    .select("-NIF -address -zip_code -phone_number -phone_number2 -email -license_inscription_date -expiration_date -price")
+        .select("-NIF -address -zip_code -phone_number -phone_number2 -email -license_inscription_date -expiration_date -price")
         .then(dataset => {
-            Users.countDocuments({"name": { "$regex": name, "$options": "i"}}).then((count) => {
+            Users.countDocuments({ "name": { "$regex": name, "$options": "i" } }).then((count) => {
                 res.send({
                     total: count,
                     res: dataset
                 })
             })
-            .catch(err => {
-                res.status(400).send(err);
-            })
-        })
-        
-        .catch(err =>{
-            res.status(404).send("Usuario no encontrado",err);
+                .catch(err => {
+                    res.status(400).send(err);
+                })
         })
 
-        
+        .catch(err => {
+            res.status(404).send("Usuario no encontrado", err);
+        })
+
+
 }
 
-function getUsersByClub(req,res) {
-    
-    const { club }  = req.query;
-    
-    Users.find({"club": {"$regex": club, "$options": "i"}})
-        .then(dataset =>{
+function getUsersByClub(req, res) {
+
+    const { club } = req.query;
+
+    Users.find({ "club": { "$regex": club, "$options": "i" } })
+        .then(dataset => {
             res.send(dataset);
         })
-        .catch(err =>{
-            res.status(404).send("Club no encontrado",err);
+        .catch(err => {
+            res.status(404).send("Club no encontrado", err);
         })
 }
 
-module.exports = { getUsers, getUsersByAffiliate, getUsersByName , getUsersByClub }
+module.exports = { getUsers, getUsersByAffiliate, getUsersByName, getUsersByClub }
