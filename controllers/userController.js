@@ -66,8 +66,9 @@ function getUsersByName(req,res) {
 
     let offset = Number(req.query.offset) || 0;
 
-
-    Users.aggregate([{
+    Users.aggregate([
+        
+        {
         $addFields: {
             "fullname": {
                 $concat: [ "$name", ' ', "$first_surname", ' ' , '$second_surname' ]
@@ -78,14 +79,19 @@ function getUsersByName(req,res) {
         },
         {
             $facet : {
-                metadata: [{ $count: "total"}],
-                data: [{$skip : offset * 10}, {$limit : 10}]
+                total: [{ $count: "total"}],
+                res: [{$skip : offset * 10}, {$limit : 10}]
             } 
         }
     ])
     .then(dataset =>{
+
+        let data = {
+            total : dataset[0].total[0].total,
+            res : dataset[0].res
+        }
         
-        res.send(dataset);
+        res.send(data);
         
     })
     .catch(error =>{
