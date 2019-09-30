@@ -13,6 +13,7 @@ const url = process.env.DB_URL;
 
 server.use(cors());
 server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
 
 server.use("/", routes);
 

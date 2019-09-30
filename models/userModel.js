@@ -1,4 +1,30 @@
 const mongoose = require('mongoose');
+var validate = require('mongoose-validator');
+
+const nameValidator = [
+    validate({
+      validator: 'isLength',
+      arguments: [3, 50],
+      message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters',
+    }),
+    validate({
+      validator: 'matches',
+      arguments: ['^[a-zA-Z-]+$', 'i'],
+      message: 'Name should contain letters only',
+    }),
+  ];
+
+
+const nifValidator = [
+    validate({
+        validator: 'matches',
+        arguments: ['^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$','i'],
+        message: "NIF should be like 999999Z"
+    })
+]
+
+
+
 
 const userSchema = new mongoose.Schema({
 
@@ -16,7 +42,8 @@ const userSchema = new mongoose.Schema({
     },
     "name": {
         type: String,
-        required: true
+        required: true,
+        validate: nameValidator
     },
     "first_surname": {
         type: String,
@@ -28,7 +55,8 @@ const userSchema = new mongoose.Schema({
     },
     "NIF": {
         type: String,
-        required: true
+        required: true,
+        validate: nifValidator
     },
     "address": {
         type: String,
@@ -95,5 +123,7 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 });
+
+
 
 module.exports = mongoose.model('regatistas', userSchema);

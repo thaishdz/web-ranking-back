@@ -59,7 +59,35 @@ function getUsersByAffiliate(req, res) {
         
 // }
 
+function updateUser(req,res) {
 
+    const { _id } = req.params;
+
+    // console.log(req.body);
+    
+
+    Users.findOneAndUpdate(
+        _id,
+        req.body,
+        {
+        new: true ,
+        useFindAndModify : false,
+        runValidators : true
+        }
+    )
+    .then(updatedUser =>{
+        res.status(200).json({
+            message: "Usuario Modificado",
+            res: updatedUser
+        })
+    })
+    .catch(error =>{
+        res.status(404).json({
+            message: "Ha ocurrido un error al actualizar el Usuario",
+            error : error
+        })
+    })
+}
 function getUsersByName(req,res) {
 
     const { fullname } = req.query;
@@ -100,4 +128,4 @@ function getUsersByName(req,res) {
 }
 
 
-module.exports = { getUsers, getUsersByAffiliate, getUsersByName }
+module.exports = { getUsers, getUsersByAffiliate, getUsersByName ,updateUser }

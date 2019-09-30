@@ -5,6 +5,11 @@ let userController = require("../controllers/userController.js");
 
 router.get('/regatistas', userController.getUsers);
 router.get('/regatistas/:_id', userController.getUsersByAffiliate);
-router.get('/regatista', userController.getUsersByName);       
+router.get('/regatista', userController.getUsersByName);  
+
+
+
+
+router.patch('/test/:_id', userController.updateUser);       
 
 module.exports = router;
