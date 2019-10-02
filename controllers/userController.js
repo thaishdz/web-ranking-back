@@ -71,4 +71,44 @@ function getUsersByClub(req, res) {
         })
 }
 
-module.exports = { getUsers, getUsersByAffiliate, getUsersByName, getUsersByClub }
+async function createUser(req, res) {
+    let user = await Users.findOne({ affiliate_number: req.body.affiliate_number });
+
+    if (user) {
+        return res.status(400).send('Este regatista ya existe');
+    } else {
+        user = new Users({
+            affiliate_number: req.body.affiliate_number,
+            federation: req.body.federation,
+            club: req.body.club,
+            name: req.body.name,
+            first_surname: req.body.first_surname,
+            second_surname: req.body.second_surname,
+            fullName: req.body.fullName,
+            NIF: req.body.NIF,
+            address: req.body.address,
+            zip_code: req.body.zip_code,
+            town: req.body.town,
+            Island: req.body.Island,
+            phone_number: req.body.phone_number,
+            phone_number2: req.body.phone_number2,
+            email: req.body.email,
+            birthdate: req.body.birthdate,
+            license_inscription_date: req.body.license_inscription_date,
+            gender: req.body.gender,
+            specialty: req.body.specialty,
+            boat: req.body.boat,
+            category: req.body.category,
+            expiration_date: req.body.expiration_date,
+            price: req.body.price,
+            status: req.body.status,
+            expiration_date: req.body.expiration_date,
+            price: req.body.price,
+            list_of_regattas: req.body.list_of_regattas
+        });
+        await user.save();
+        res.send(user);
+    }
+}
+
+module.exports = { getUsers, getUsersByAffiliate, getUsersByName, getUsersByClub, createUser }

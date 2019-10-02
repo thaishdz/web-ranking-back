@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    "fullName": {
+        type: String,
+        required: false
+    },
     "NIF": {
         type: String,
         required: true

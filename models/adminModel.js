@@ -16,6 +16,12 @@ const adminSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    reset_password_token: {
+        type: String
+    },
+    reset_password_expires: {
+        type: Date
     }
 });
 
@@ -24,7 +30,7 @@ const generateHashPassword = (plainPassword) => {
 };
 
 // Middleware, antes de guardar encriptar la contraseña
-adminSchema.pre('save', function(next) {
+adminSchema.pre('save', function (next) {
     try {
         let user = this;
 
@@ -37,9 +43,9 @@ adminSchema.pre('save', function(next) {
 });
 
 // Funcion para comprobar la contraseña mediante bcrypt
-adminSchema.methods.comparePassword = function(candidatePassword, hashPassword, cb) {
+adminSchema.methods.comparePassword = function (candidatePassword, hashPassword, cb) {
     //console.log("CONTRASEÑA ->  " + 'hashPassword: ' + hashPassword + 'candidatePassword: ' + candidatePassword + 'cb: ' + cb);
-    bcrypt.compare(candidatePassword, hashPassword, function(err, isMatch) {
+    bcrypt.compare(candidatePassword, hashPassword, function (err, isMatch) {
         if (err) {
             return cb(err);
         }
