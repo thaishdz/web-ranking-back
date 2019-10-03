@@ -29,8 +29,7 @@ const nifValidator = [
 const userSchema = new mongoose.Schema({
 
     "affiliate_number": {
-        type: String,
-        required: true
+        type: String
     },
     "federation": {
         type: String,
@@ -52,61 +51,47 @@ const userSchema = new mongoose.Schema({
     },
     "second_surname": {
         type: String,
-        required: false,
         validate: nameSurnameValidator
     },
     "fullName": {
-        type: String,
-        required: false
+        type: String
     },
     "NIF": {
         type: String,
-        required: true,
         validate: nifValidator
     },
     "address": {
-        type: String,
-        required: true
+        type: String
     },
     "zip_code": {
-        type: String,
-        required: true
+        type: String
     },
     "town": {
-        type: String,
-        required: true
+        type: String
     },
     "Island": {
-        type: String,
-        required: true
+        type: String
     },
     "phone_number": {
-        type: String,
-        required: true
+        type: String
     },
     "phone_number2": {
-        type: String,
-        required: false
+        type: String
     },
     "email": {
-        type: String,
-        required: true
+        type: String
     },
     "birthdate": {
-        type: String,
-        required: true
+        type: String
     },
     "license_inscription_date": {
-        type: String,
-        required: true
+        type: String
     },
     "gender": {
-        type: String,
-        required: true
+        type: String
     },
     "specialty": {
-        type: String,
-        required: true
+        type: String
     },
     "boat": {
         type: String,
@@ -117,16 +102,13 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     "expiration_date": {
-        type: String,
-        required: true
+        type: String
     },
     "status": {
-        type: String,
-        required: true
+        type: String
     },
     "list_of_regattas": {
-        type: Array,
-        required: true
+        type: Array
     }
 });
 

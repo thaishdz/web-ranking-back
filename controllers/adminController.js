@@ -46,7 +46,6 @@ function signUpAdmin(req, res) {
     // Save new admin
     Admin.create(req.body)
         .then(admin => {
-
             return res.status(200).send(responseToken(admin));
 
         })
