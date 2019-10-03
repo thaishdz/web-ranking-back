@@ -13,9 +13,9 @@ const config = require('../../../config')[process.env.NODE_ENV]
 passport.use('admin', new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.SECRET_TOKEN,
-}, async(payload, done) => {
+}, async (payload, done) => {
     try {
-    
+
         const user = await Admin.findOne({
             _id: payload.id
         })

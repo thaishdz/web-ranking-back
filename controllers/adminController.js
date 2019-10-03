@@ -165,7 +165,7 @@ function forgot_password(req, res) {
                 template: 'forgot-password-email',
                 subject: '¡Recupera tu contraseña!',
                 context: {
-                    url: 'http://3f623f25.ngrok.io/auth/reset_password?token=' + token,
+                    url: 'http://403e66c2.ngrok.io/auth/reset_password?token=' + token,
                     name: user.name
                 }
             };

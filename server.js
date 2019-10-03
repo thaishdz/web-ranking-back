@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 var routes = require("./routes/routes.js");
 
 const port = process.env.PORT || 3000;
-const url = process.env.DB_URL;
+//const url = process.env.DB_URL;
 const connectionString = process.env.MONGO_ATLAS_URL;
 
 server.use(express.json());

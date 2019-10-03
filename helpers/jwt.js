@@ -25,7 +25,7 @@ const createRefreshToken = (admin) => {
 
 const refreshToken = (req, res) => {
     if (req.body.refresh_token && req.body.grant_type === 'refresh_token') {
-        JWT.verify(req.body.refresh_token, config.SECRET_REFRESH_TOKEN, function(err, data) {
+        JWT.verify(req.body.refresh_token, config.SECRET_REFRESH_TOKEN, function (err, data) {
             if (err) {
                 return res.status(400).send({
                     error: "TokenExpired"
