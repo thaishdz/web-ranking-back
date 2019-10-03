@@ -3,22 +3,22 @@ var validate = require('mongoose-validator');
 
 const nameSurnameValidator = [
     validate({
-      validator: 'isLength',
-      arguments: [3, 50],
-      message: 'Name AND Surname should be between {ARGS[0]} and {ARGS[1]} characters',
+        validator: 'isLength',
+        arguments: [3, 50],
+        message: 'Name AND Surname should be between {ARGS[0]} and {ARGS[1]} characters',
     }),
     validate({
-      validator: 'matches',
-      arguments: ['^[a-zA-Z-]+$', 'i'],
-      message: 'Name AND Surname should contain letters only',
+        validator: 'matches',
+        arguments: ['^[a-zA-Z-]+$', 'i'],
+        message: 'Name AND Surname should contain letters only',
     }),
-  ];
+];
 
 
 const nifValidator = [
     validate({
         validator: 'matches',
-        arguments: ['^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$','i'],
+        arguments: ['^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$', 'i'],
         message: "NIF should be like 00000000Z"
     })
 ]
@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false,
         validate: nameSurnameValidator
+    },
+    "fullName": {
+        type: String,
+        required: false
     },
     "NIF": {
         type: String,
