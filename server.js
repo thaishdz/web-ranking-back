@@ -11,6 +11,16 @@ const port = process.env.PORT || 3000;
 //const url = process.env.DB_URL;
 const connectionString = process.env.MONGO_ATLAS_URL;
 
+var options = {
+    inflate: true,
+    limit: '100kb',
+    type: '*/*'
+};
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.raw(options));
+
 server.use(express.json());
 server.use(cors());
 server.use(express.urlencoded({ extended: true }))
