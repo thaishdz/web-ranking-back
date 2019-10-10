@@ -164,7 +164,7 @@ function forgot_password(req, res) {
                 template: 'forgot-password-email',
                 subject: '¡Recupera tu contraseña!',
                 context: {
-                    url: 'http://403e66c2.ngrok.io/auth/reset_password?token=' + token,
+                    url: 'http://38232cf0.ngrok.io/auth/reset_password?token=' + token,
                     name: user.name
                 }
             };
@@ -173,6 +173,7 @@ function forgot_password(req, res) {
                 if (!err) {
                     return res.json({ message: 'Revisa tu correo y sigue las instrucciones' });
                 } else {
+                    res.status(400).send(err);
                     return done(err);
                 }
             });

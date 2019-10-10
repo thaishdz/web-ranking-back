@@ -31,12 +31,12 @@ function getUsersByAffiliate(req, res) {
 
 
 function getUsersByNameSurname(req, res) {
-    const { fullname } = req.query;
+    const { fullName } = req.query;
     let offset = Number(req.query.offset) || 0;
     Users.aggregate([
         {
             $addFields: {
-                "fullname": {
+                "fullName": {
                     $concat: ["$name", ' ', "$first_surname", ' ', '$second_surname']
                 }
             }
@@ -61,7 +61,7 @@ function getUsersByNameSurname(req, res) {
         },
 
         {
-            $match: { "fullname": new RegExp(diacriticSensitiveRegex(fullname), 'i') },
+            $match: { "fullName": new RegExp(diacriticSensitiveRegex(fullName), 'i') },
         },
         {
             $facet: {
@@ -69,20 +69,18 @@ function getUsersByNameSurname(req, res) {
                 res: [{ $skip: offset * 10 }, { $limit: 10 }]
             }
         }
-    ])
-        .then(dataset => {
+    ]).then(dataset => {
 
-            let data = {
-                total: dataset[0].total[0].total,
-                res: dataset[0].res
-            }
+        let data = {
+            total: dataset[0].total[0].total,
+            res: dataset[0].res
+        }
 
-            res.send(data);
+        res.send(data);
 
-        })
-        .catch(error => {
-            console.log("Ha ocurrido un error ", error);
-        })
+    }).catch(error => {
+        res.status(404).send(error);
+    })
 }
 
 function updateUser(req, res) {
@@ -113,7 +111,8 @@ function updateUser(req, res) {
 }
 
 async function createUser(req, res) {
-    let user = await Users.findOne({ affiliate_number: req.body.affiliate_number });
+    // Antes estaba con affilitate_number
+    let user = await Users.findOne({ name: req.body.name, first_surname: req.body.first_surname, second_surname: req.body.second_surname });
 
     if (user) {
         return res.status(400).send('Este regatista ya existe');
